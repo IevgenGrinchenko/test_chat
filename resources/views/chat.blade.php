@@ -1,21 +1,34 @@
-@extends('layout')
-@section('title', 'Login')
+@extends('layouts.app')
+@section('title', 'Chat')
 @section('content')
-    <div class="container">
-        <form action="{{route('login')}}" method="POST" class="ms-auto me-auto mt-3" style="width: 500px;">
-            <div class="mb-3">
-                <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" name="email">
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password">
-            </div>
-{{--            <div class="mb-3 form-check">--}}
-{{--                <input type="checkbox" class="form-check-input" id="check1">--}}
-{{--                <label class="form-check-label" for="check1">Check me out</label>--}}
-{{--            </div>--}}
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+@include('include.css')
+<div class="row">
+
+    <div class="col-2 border-end border-black bg-secondary vh-100" id="user_list">
+{{--        <ul>--}}
+{{--            <li>aaaaaaaa</li>--}}
+{{--            <li>aaaaaaaa</li>--}}
+{{--            <li>aaaaaaaa</li>--}}
+{{--            <li>aaaaaaaa</li>--}}
+{{--            <li>aaaaaaaa</li>--}}
+{{--            <li>aaaaaaaa</li>--}}
+{{--        </ul>--}}
     </div>
+    <div class="col-10 gradient container" id="app">
+        <div class="row">
+
+            <div>
+                <chat-messages :messages="messages"></chat-messages>
+            </div>
+
+            <chat-form
+                v-on:messagesent="addMessage"
+                :user="{{ Auth::user() }}" class="fixed-bottom"
+            ></chat-form>
+        </div>
+    </div>
+</div>
+
+
+
 @endsection
